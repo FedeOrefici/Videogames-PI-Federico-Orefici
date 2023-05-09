@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Index from "./components/Index";
+import Navbar from "./components/Navbar";
+import Create from "./pages/Create";
+import Detail from "./pages/Detail";
+import Welcome from "./components/Welcome";
 
 function App() {
+
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      {(location.pathname === '/') ? <Welcome /> : <Navbar /> }
+        <Routes>
+          <Route  path='/dogs' element={<Index />} />
+          <Route path='/dogs/create' element={<Create />} />
+          <Route path='/dogs/:id' element={<Detail />} />
+        </Routes>
+    </Fragment>
   );
 }
 
